@@ -17,7 +17,6 @@ services:
       context: ./api
       args:
         WORKDIR: $WORKDIR
-        HOST:                  $HOST
         API_PORT:              $API_PORT
         POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
@@ -28,19 +27,18 @@ services:
     depends_on:
       - db
     ports:
-      - "$API_PORT:$CONTAINER_PORT"
+      - "$API_PORT:3000"
 
   front:
     build:
       context: ./front
       args:
         WORKDIR: $WORKDIR
-        CONTAINER_PORT: $CONTAINER_PORT
         API_URL: "http://localhost:$API_PORT"
     command: yarn run dev
     volumes:
       - ./front:/$WORKDIR
     ports:
-      - "$FRONT_PORT:$CONTAINER_PORT"
+      - "$FRONT_PORT:8080"
     depends_on:
       - api
