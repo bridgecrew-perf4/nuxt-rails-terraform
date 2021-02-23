@@ -19,8 +19,8 @@ phases:
       - docker push 667123667048.dkr.ecr.ap-northeast-1.amazonaws.com/nuxt-ecr:latest
   post_build:
     commands:
-      - printf '[{"name":"rails-service","imageUri":"%s"}]' rails-ecr > api_imagedefinitions.json
-      - printf '[{"name":"nuxt-service","imageUri":"%s"}]' nuxt-ecr > front_imagedefinitions.json
+      - printf '[{"name":"rails-container","imageUri":"%s"}]' rails-ecr > api_imagedefinitions.json
+      - printf '[{"name":"nuxt-container","imageUri":"%s"}]' nuxt-ecr > front_imagedefinitions.json
 artifacts:
   files:
     - api_imagedefinitions.json
