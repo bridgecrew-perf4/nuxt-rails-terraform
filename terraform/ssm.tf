@@ -48,6 +48,12 @@ resource "aws_ssm_parameter" "db-username" {
   type        = "SecureString"
   description = "DB_USERNAME"
 }
+resource "aws_ssm_parameter" "password" {
+  name        = "password"
+  value       = var.POSTGRES_PASSWORD
+  type        = "SecureString"
+  description = "PASSWORD"
+}
 resource "aws_ssm_parameter" "postgres-password" {
   name        = "postgres-password"
   value       = var.POSTGRES_PASSWORD
