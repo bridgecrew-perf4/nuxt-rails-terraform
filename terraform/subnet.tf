@@ -38,6 +38,9 @@ resource "aws_subnet" "nuxt-rails-private-1c" {
   }
 }
 
+###############
+# SubnetGroup #
+###############
 resource "aws_db_subnet_group" "nuxt-rails-rds-subnet-group" {
   name        = "nuxt-rails-rds-subnet-group"
   description = "nuxt rails rds subnet group"

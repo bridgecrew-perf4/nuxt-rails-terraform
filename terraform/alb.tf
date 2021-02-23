@@ -1,3 +1,6 @@
+#########
+#  ALB  #
+#########
 resource "aws_lb" "nuxt-rails-alb" {
   name                       = "nuxt-rails-alb"
   load_balancer_type         = "application"
@@ -19,6 +22,9 @@ resource "aws_lb" "nuxt-rails-alb" {
   }
 }
 
+############
+# Listener #
+############
 resource "aws_lb_listener" "nuxt-rails-http-listener" {
   load_balancer_arn = aws_lb.nuxt-rails-alb.arn
   port              = "80"
@@ -45,8 +51,6 @@ resource "aws_lb_listener" "nuxt-rails-https-listener" {
     type             = "forward"
   }
 }
-
-
 resource "aws_lb_listener" "rails-listener" {
   load_balancer_arn = aws_lb.nuxt-rails-alb.arn
   port              = "3000"
@@ -59,6 +63,9 @@ resource "aws_lb_listener" "rails-listener" {
   }
 }
 
+###############
+# TargetGroup #
+###############
 resource "aws_lb_target_group" "nuxt-alb-tg" {
   name        = "nuxt-alb-tg"
   target_type = "ip"

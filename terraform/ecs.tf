@@ -1,14 +1,26 @@
+###########
+#   ECS   #
+###########
 resource "aws_ecs_cluster" "nuxt-rails-cluster" {
   name = "nuxt-rails-cluster"
 }
-
+resource "aws_ecs_task_definition" "nuxt-task" {
+  family                   = "nuxt-task"
+  cpu                      = "512"
+  memory                   = "1024"
+  network_mode             = "awsvpc"
+  requires_compatibilities = ["FARGATE"]
+  container_definitions    = file("./task/nuxt_container_definitions.json")
+  execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
+}
 resource "aws_ecs_service" "nuxt-service" {
-  name             = "nuxt-service"
-  cluster          = aws_ecs_cluster.nuxt-rails-cluster.arn
-  task_definition  = aws_ecs_task_definition.nuxt-task.arn
-  desired_count    = 1
-  launch_type      = "FARGATE"
-  platform_version = "1.3.0"
+  name                              = "nuxt-service"
+  cluster                           = aws_ecs_cluster.nuxt-rails-cluster.arn
+  task_definition                   = aws_ecs_task_definition.nuxt-task.arn
+  desired_count                     = 1
+  launch_type                       = "FARGATE"
+  platform_version                  = "1.3.0"
+  health_check_grace_period_seconds = 600
 
   network_configuration {
     assign_public_ip = true
@@ -28,20 +40,15 @@ resource "aws_ecs_service" "nuxt-service" {
   }
 }
 
-resource "aws_ecs_task_definition" "nuxt-task" {
-  family                   = "nuxt-task"
+resource "aws_ecs_task_definition" "rails-task" {
+  family                   = "rails-task"
   cpu                      = "256"
   memory                   = "512"
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
-  container_definitions    = file("./task/nuxt_container_definitions.json")
+  container_definitions    = file("./task/rails_container_definitions.json")
   execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
-
-  tags = {
-    Name = "nuxt-task"
-  }
 }
-
 resource "aws_ecs_service" "rails-service" {
   name             = "rails-service"
   cluster          = aws_ecs_cluster.nuxt-rails-cluster.arn
@@ -68,49 +75,37 @@ resource "aws_ecs_service" "rails-service" {
   }
 }
 
-resource "aws_ecs_task_definition" "rails-task" {
-  family                   = "rails-task"
-  cpu                      = "256"
-  memory                   = "512"
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
-  container_definitions    = file("./task/rails_container_definitions.json")
-  execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
-
-  tags = {
-    Name = "rails-task"
-  }
-}
-
 resource "aws_ecs_task_definition" "db-create" {
   family                   = "db-create"
   container_definitions    = file("./task/db_create_definitions.json")
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
   cpu                      = "256"
   memory                   = "512"
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
   execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
 }
 resource "aws_ecs_task_definition" "db-migrate" {
   family                   = "db-migrate"
   container_definitions    = file("./task/db_migrate_definitions.json")
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
   cpu                      = "256"
   memory                   = "512"
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
   execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
 }
 resource "aws_ecs_task_definition" "db-migrate-reset" {
   family                   = "db-migrate-reset"
   container_definitions    = file("./task/db_migrate_reset_definitions.json")
+  requires_compatibilities = ["FARGATE"]
+  network_mode             = "awsvpc"
   cpu                      = "256"
   memory                   = "512"
-  network_mode             = "awsvpc"
-  requires_compatibilities = ["FARGATE"]
   execution_role_arn       = module.ecs_task_execution_role.iam_role_arn
 }
 
-# IAM
+##########
+#  権限   #
+##########
 data "aws_iam_policy" "ecs_task_execution_role_policy" {
   arn = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
 }
