@@ -4,7 +4,6 @@ env:
   parameter-store:
     DOCKERHUB_USER: dockerhub-user
     DOCKERHUB_PASS: dockerhub-pass
-
 phases:
   install:
     runtime-versions:
@@ -12,17 +11,14 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 667123667048.dkr.ecr.ap-northeast-1.amazonaws.com      
+      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 667123667048.dkr.ecr.ap-northeast-1.amazonaws.com
       - echo Logging in to Docker Hub...
       - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
   build:
     commands:
-      - docker build -t rails-ecr api/
-      - docker tag rails-ecr:latest 667123667048.dkr.ecr.ap-northeast-1.amazonaws.com/rails-ecr:latest;
+      - docker build -t rails-ecr ./api
       - docker push 667123667048.dkr.ecr.ap-northeast-1.amazonaws.com/rails-ecr:latest
-      
-      - docker build -t nuxt-ecr front/
-      - docker tag nuxt-ecr:latest 667123667048.dkr.ecr.ap-northeast-1.amazonaws.com/nuxt-ecr:latest;
+      - docker build -t nuxt-ecr ./front
       - docker push 667123667048.dkr.ecr.ap-northeast-1.amazonaws.com/nuxt-ecr:latest
   post_build:
     commands:
