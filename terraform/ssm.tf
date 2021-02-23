@@ -61,6 +61,8 @@ variable "GITHUB_USER" {}
 variable "GITHUB_REPO" {}
 variable "GITHUB_BRANCH" {}
 variable "WEBHOOK_TOKEN" {}
+variable "DOCKERHUB_USER" {}
+variable "DOCKERHUB_PASS" {}
 
 resource "aws_ssm_parameter" "github-token" {
   name = "github-token"
@@ -91,4 +93,16 @@ resource "aws_ssm_parameter" "webhook-token" {
   value = var.WEBHOOK_TOKEN
   type = "SecureString"
   description = "WEBHOOK_TOKEN"
+}
+resource "aws_ssm_parameter" "dockerhub-user" {
+  name = "dockerhub-user"
+  value = var.DOCKERHUB_USER
+  type = "SecureString"
+  description = "DOCKERHUB_USER"
+}
+resource "aws_ssm_parameter" "dockerhub-pass" {
+  name = "dockerhub-pass"
+  value = var.DOCKERHUB_PASS
+  type = "SecureString"
+  description = "DOCKERHUB_PASS"
 }
