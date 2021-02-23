@@ -176,7 +176,7 @@ resource "aws_codepipeline" "codepipeline" {
 
       configuration = {
         ClusterName = aws_ecs_cluster.nuxt-rails-cluster.name
-        ServiceName = aws_ecs_service.nuxt-service.name
+        ServiceName = aws_ecs_service.rails-service.name
         FileName    = "api_imagedefinitions.json"
       }
     }
@@ -190,7 +190,7 @@ resource "aws_codepipeline" "codepipeline" {
 
       configuration = {
         ClusterName = aws_ecs_cluster.nuxt-rails-cluster.name
-        ServiceName = aws_ecs_service.rails-service.name
+        ServiceName = aws_ecs_service.nuxt-service.name
         FileName    = "front_imagedefinitions.json"
       }
     }
