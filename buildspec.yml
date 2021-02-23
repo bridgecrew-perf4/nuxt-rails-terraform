@@ -1,10 +1,5 @@
 version: 0.2
 
-env:
-  parameter-store:
-    FRONT_IMAGE: front-image
-    WORKDIR: workdir
-
 phases:
   install:
     runtime-versions:
