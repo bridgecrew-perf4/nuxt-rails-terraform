@@ -20,6 +20,12 @@ resource "aws_ecs_service" "nuxt-service" {
       aws_subnet.nuxt-rails-public-1c.id,
     ]
   }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.nuxt-alb-tg.arn
+    container_name   = "nuxt-container"
+    container_port   = "80"
+  }
 }
 
 resource "aws_ecs_task_definition" "nuxt-task" {
@@ -53,6 +59,12 @@ resource "aws_ecs_service" "rails-service" {
       aws_subnet.nuxt-rails-public-1a.id,
       aws_subnet.nuxt-rails-public-1c.id,
     ]
+  }
+
+  load_balancer {
+    target_group_arn = aws_lb_target_group.rails-alb-tg.arn
+    container_name   = "rails-container"
+    container_port   = "3000"
   }
 }
 

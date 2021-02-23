@@ -49,7 +49,7 @@ resource "aws_lb_listener" "nuxt-rails-https-listener" {
 
 resource "aws_lb_listener" "rails-listener" {
   load_balancer_arn = aws_lb.nuxt-rails-alb.arn
-  port              = "8080"
+  port              = "3000"
   protocol          = "HTTPS"
   certificate_arn   = aws_acm_certificate.nuxt-rails-acm.arn
 
@@ -82,14 +82,14 @@ resource "aws_lb_target_group" "rails-alb-tg" {
   name        = "rails-alb-tg"
   target_type = "ip"
   vpc_id      = aws_vpc.nuxt-rails-vpc.id
-  port        = 8080
+  port        = 3000
   protocol    = "HTTP"
 
   health_check {
     enabled             = true
     interval            = 60
     path                = "/v1/tasks"
-    port                = 8080
+    port                = 3000
     protocol            = "HTTP"
     matcher             = 200
     timeout             = 50

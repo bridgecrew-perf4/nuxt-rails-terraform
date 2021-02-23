@@ -58,7 +58,7 @@ resource "aws_codebuild_project" "codetest" {
   service_role = module.codebuild_role.iam_role_arn
 
   source {
-    type = "CODEPIPELINE"
+    type      = "CODEPIPELINE"
     buildspec = "testspec.yml"
   }
 
@@ -167,7 +167,7 @@ resource "aws_codepipeline" "codepipeline" {
     name = "Deploy"
 
     action {
-      name            = "Deploy-API"
+      name            = "Deploy-Rails"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
@@ -181,7 +181,7 @@ resource "aws_codepipeline" "codepipeline" {
       }
     }
     action {
-      name            = "Deploy-FRONT"
+      name            = "Deploy-Nuxt"
       category        = "Deploy"
       owner           = "AWS"
       provider        = "ECS"
@@ -219,7 +219,7 @@ resource "aws_codepipeline_webhook" "webhook" {
 }
 provider "github" {
   organization = "naokivandit"
-  token = var.GITHUB_TOKEN
+  token        = var.GITHUB_TOKEN
 }
 resource "github_repository_webhook" "codepipeline" {
   repository = "nuxt-rails"
