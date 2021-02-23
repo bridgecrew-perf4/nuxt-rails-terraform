@@ -222,7 +222,7 @@ provider "github" {
   token = var.GITHUB_TOKEN
 }
 resource "github_repository_webhook" "codepipeline" {
-  repository = "nuxt-rails-app"
+  repository = "nuxt-rails"
 
   configuration {
     url          = aws_codepipeline_webhook.webhook.url

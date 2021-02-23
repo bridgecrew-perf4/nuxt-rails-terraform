@@ -1,0 +1,13 @@
+version: 0.2
+
+phases:
+
+  pre_build:
+    commands:
+      - docker-compose build
+  build:
+    commands:
+      - docker-compose run api rails db:create
+      - docker-compose run api rails db:migrate
+  post_build:
+    commands:

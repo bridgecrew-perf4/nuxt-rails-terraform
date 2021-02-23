@@ -1,7 +1,27 @@
+// front
+variable "FRONT_PORT" {}
+
+resource "aws_ssm_parameter" "front-port" {
+  name = "front-port"
+  value = var.FRONT_PORT
+  type = "SecureString"
+  description = "FRONT_PORT"
+}
+
+
+// api
+variable "API_PORT" {}
 variable "DB_HOST" {}
 variable "DB_NAME" {}
 variable "DB_USERNAME" {}
-variable "DB_PASSWORD" {}
+variable "POSTGRES_PASSWORD" {}
+
+resource "aws_ssm_parameter" "api-port" {
+  name = "api-port"
+  value = var.API_PORT
+  type = "SecureString"
+  description = "API_PORT"
+}
 
 resource "aws_ssm_parameter" "db-host" {
   name = "db"
@@ -21,13 +41,14 @@ resource "aws_ssm_parameter" "db-username" {
   type = "SecureString"
   description = "DB_USERNAME"
 }
-resource "aws_ssm_parameter" "db-password" {
-  name = "password"
-  value = var.DB_PASSWORD
+resource "aws_ssm_parameter" "postgres-password" {
+  name = "postgres-password"
+  value = var.POSTGRES_PASSWORD
   type = "SecureString"
-  description = "DB_PASSWORD"
+  description = "POSTGRES_PASSWORD"
 }
 
+// pipeline
 variable "GITHUB_TOKEN" {}
 variable "GITHUB_USER" {}
 variable "GITHUB_REPO" {}

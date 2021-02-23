@@ -1,0 +1,33 @@
+version: 0.2
+
+env:
+  parameter-store:
+    AWS_DEFAULT_REGION: default-region
+    AWS_ACCOUNT_ID: account-id
+    API_IMAGE: api-image
+    FRONT_IMAGE: front-image
+    DOCKERHUB_USER: dockerhub-user
+    DOCKERHUB_PASS: dockerhub-pass
+    WORKDIR: workdir
+
+phases:
+  install:
+    runtime-versions:
+      docker: 18
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 667123667048.dkr.ecr.ap-northeast-1.amazonaws.com;
+  build:
+    commands:
+      - docker build -t rails-ecr ./api
+      - docker push rails-ecr
+      - docker build -t nuxt-ecr front/
+      - docker push nuxt-ecr
+  post_build:
+    commands:
+      - printf '[{"name":"api-container","imageUri":"%s"}]' rails-ecr > api_imagedefinitions.json
+      - printf '[{"name":"front-container","imageUri":"%s"}]' nuxt-ecr > front_imagedefinitions.json
+artifacts:
+  files:
+    - api_imagedefinitions.json
+    - front_imagedefinitions.json
