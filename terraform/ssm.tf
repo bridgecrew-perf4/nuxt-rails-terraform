@@ -1,5 +1,13 @@
 // front
+variable "WORKDIR" {}
 variable "FRONT_PORT" {}
+
+resource "aws_ssm_parameter" "workdir" {
+  name = "workdir"
+  value = var.WORKDIR
+  type = "SecureString"
+  description = "WORKDIR"
+}
 
 resource "aws_ssm_parameter" "front-port" {
   name = "front-port"
@@ -7,7 +15,6 @@ resource "aws_ssm_parameter" "front-port" {
   type = "SecureString"
   description = "FRONT_PORT"
 }
-
 
 // api
 variable "API_PORT" {}
