@@ -3,13 +3,9 @@ version: 0.2
 env:
   parameter-store:
     WORKDIR: workdir
-    HOST: host
-    API_PORT: api-port
-    DB_HOST: db-host
-    DB_NAME: db-name
-    DB_USERNAME: db-username
-    DB_PASSWORD: db-password
     FRONT_PORT: front-port
+    API_PORT: api-port
+    POSTGRES_PASSWORD: postgres-password
     
 phases:
 
