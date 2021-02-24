@@ -1,3 +1,8 @@
+################
+# CodePipeline #
+################
+
+#__________ CoreBuild __________#
 data "aws_iam_policy_document" "codebuild" {
   statement {
     effect    = "Allow"
@@ -52,7 +57,7 @@ resource "aws_codebuild_project" "codebuild" {
     privileged_mode = true
   }
 }
-
+#__________ CodeTest ___________#
 resource "aws_codebuild_project" "codetest" {
   name         = "codetest"
   service_role = module.codebuild_role.iam_role_arn
@@ -74,6 +79,7 @@ resource "aws_codebuild_project" "codetest" {
   }
 }
 
+#__________ CorePipeline __________#
 data "aws_iam_policy_document" "codepipeline" {
   statement {
     effect    = "Allow"
@@ -201,7 +207,7 @@ resource "aws_codepipeline" "codepipeline" {
     type     = "S3"
   }
 }
-
+#__________ Webhook __________#
 resource "aws_codepipeline_webhook" "webhook" {
   name            = "webhook"
   target_pipeline = aws_codepipeline.codepipeline.name

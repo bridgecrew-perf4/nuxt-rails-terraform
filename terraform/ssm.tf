@@ -29,6 +29,8 @@ variable "DB_HOST" {}
 variable "DB_NAME" {}
 variable "DB_USERNAME" {}
 variable "POSTGRES_PASSWORD" {}
+variable "S3_REGION" {}
+variable "S3_BUCKET" {}
 
 resource "aws_ssm_parameter" "api-port" {
   name        = "api-port"
@@ -66,6 +68,18 @@ resource "aws_ssm_parameter" "postgres-password" {
   value       = var.POSTGRES_PASSWORD
   type        = "SecureString"
   description = "POSTGRES_PASSWORD"
+}
+resource "aws_ssm_parameter" "s3-region" {
+  name = "s3-region"
+  value = var.S3_REGION
+  type = "SecureString"
+  description = "S3_REGION"
+}
+resource "aws_ssm_parameter" "s3-bucket" {
+  name = "s3-bucket"
+  value = var.S3_BUCKET
+  type = "SecureString"
+  description = "S3_BUCKET"
 }
 
 #============================================================

@@ -6,6 +6,8 @@ env:
     FRONT_PORT: front-port
     API_PORT: api-port
     POSTGRES_PASSWORD: postgres-password
+    S3_REGION: s3-region
+    S3_BUCKET: s3-bucket
     DOCKERHUB_USER: dockerhub-user
     DOCKERHUB_PASS: dockerhub-pass
     

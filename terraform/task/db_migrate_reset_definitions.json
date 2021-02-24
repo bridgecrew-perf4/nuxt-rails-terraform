@@ -56,6 +56,14 @@
       {
         "name": "DB_PASSWORD",
         "valueFrom": "password"
+      },
+      {
+        "name": "S3_REGION",
+        "valueFrom": "s3-region"
+      },
+      {
+        "name": "S3_BUCKET",
+        "valueFrom": "s3-bucket"
       }
     ]
   }
