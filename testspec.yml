@@ -6,14 +6,20 @@ env:
     FRONT_PORT: front-port
     API_PORT: api-port
     POSTGRES_PASSWORD: postgres-password
+    DOCKERHUB_USER: dockerhub-user
+    DOCKERHUB_PASS: dockerhub-pass
     
 phases:
 
   pre_build:
     commands:
+      - echo Logging in to Docker Hub...
+      - echo $DOCKERHUB_PASS | docker login -u $DOCKERHUB_USER --password-stdin
+      - echo Starting Tests...
       - docker-compose build
   build:
     commands:
+      - echo Starting Front Container Tests...
       - docker-compose run api rails db:create
       - docker-compose run api rails db:migrate
   post_build:

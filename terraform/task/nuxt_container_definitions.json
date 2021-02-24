@@ -17,8 +17,26 @@
         "containerPort": 80
       }
     ],
-     "command": [
+    "command": [
       "yarn", "start"
+    ],
+    "environment": [
+      {
+        "name": "NODE_ENV",
+        "value": "production"
+      },
+      {
+        "name": "WORKDIR",
+        "value": "app"
+      },
+      {
+        "name": "HOST",
+        "value": "0.0.0.0"
+      },
+      {
+        "name": "PORT",
+        "value": "80"
+      }
     ]
   }
 ]
