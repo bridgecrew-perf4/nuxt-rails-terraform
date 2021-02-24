@@ -9,38 +9,21 @@ variable "AWS_ACCESS_KEY_ID" {}
 variable "AWS_SECRET_ACCESS_KEY" {}
 
 resource "aws_ssm_parameter" "access-key-id" {
-  name = "access-key-id"
-  value = var.AWS_ACCESS_KEY_ID
-  type = "SecureString"
+  name        = "access-key-id"
+  value       = var.AWS_ACCESS_KEY_ID
+  type        = "SecureString"
   description = "AWS_ACCESS_KEY_ID"
 }
 resource "aws_ssm_parameter" "secret-access-key" {
-  name = "secret-access-key"
-  value = var.AWS_SECRET_ACCESS_KEY
-  type = "SecureString"
+  name        = "secret-access-key"
+  value       = var.AWS_SECRET_ACCESS_KEY
+  type        = "SecureString"
   description = "AWS_SECRET_ACCESS_KEY"
 }
 
-
-// front
-variable "WORKDIR" {}
-variable "FRONT_PORT" {}
-
-resource "aws_ssm_parameter" "workdir" {
-  name        = "workdir"
-  value       = var.WORKDIR
-  type        = "SecureString"
-  description = "WORKDIR"
-}
-
-resource "aws_ssm_parameter" "front-port" {
-  name        = "front-port"
-  value       = var.FRONT_PORT
-  type        = "SecureString"
-  description = "FRONT_PORT"
-}
-
-// api
+#============================================================
+# API
+#============================================================
 variable "API_PORT" {}
 variable "DB_HOST" {}
 variable "DB_NAME" {}
@@ -85,7 +68,29 @@ resource "aws_ssm_parameter" "postgres-password" {
   description = "POSTGRES_PASSWORD"
 }
 
-// pipeline
+#============================================================
+# FRONT
+#============================================================
+variable "WORKDIR" {}
+variable "FRONT_PORT" {}
+
+resource "aws_ssm_parameter" "workdir" {
+  name        = "workdir"
+  value       = var.WORKDIR
+  type        = "SecureString"
+  description = "WORKDIR"
+}
+
+resource "aws_ssm_parameter" "front-port" {
+  name        = "front-port"
+  value       = var.FRONT_PORT
+  type        = "SecureString"
+  description = "FRONT_PORT"
+}
+
+#============================================================
+# CodePipeline
+#============================================================
 variable "GITHUB_TOKEN" {}
 variable "GITHUB_USER" {}
 variable "GITHUB_REPO" {}
