@@ -44,7 +44,7 @@ export default {
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://nuxt-rails.com' : 'http://localhost:3000'
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://nuxt-rails.com:3000' : 'http://localhost:3000'
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
