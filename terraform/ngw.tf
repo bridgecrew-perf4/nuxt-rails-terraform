@@ -4,6 +4,6 @@ resource "aws_nat_gateway" "nuxt-rails-ngw" {
   depends_on    = [aws_internet_gateway.nuxt-rails-igw]
 
   tags = {
-    Name = "gadget-ngw"
+    Name = "nuxt-rails-ngw"
   }
 }

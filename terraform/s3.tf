@@ -1,3 +1,6 @@
+##########
+#   S3   #
+##########
 resource "aws_s3_bucket" "nuxt-rails-s3-bucket" {
   bucket = "nuxt-rails-s3-bucket-for-images"
   acl    = "public-read"
@@ -12,7 +15,6 @@ resource "aws_s3_bucket" "nuxt-rails-s3-bucket" {
     Name = "nuxt-rails-s3-bucket-for-images"
   }
 }
-
 resource "aws_s3_bucket" "artifact" {
   bucket = "artifact-pragmatic-terraform-for-nuxt-rails"
 
