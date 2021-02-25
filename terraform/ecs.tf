@@ -29,7 +29,7 @@ resource "aws_ecs_service" "nuxt-service" {
     ]
     subnets = [
       aws_subnet.nuxt-rails-public-1a.id,
-      aws_subnet.nuxt-rails-public-1c.id,
+      aws_subnet.nuxt-rails-public-1c.id
     ]
   }
 
@@ -64,7 +64,7 @@ resource "aws_ecs_service" "rails-service" {
     ]
     subnets = [
       aws_subnet.nuxt-rails-public-1a.id,
-      aws_subnet.nuxt-rails-public-1c.id,
+      aws_subnet.nuxt-rails-public-1c.id
     ]
   }
 
