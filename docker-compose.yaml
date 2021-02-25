@@ -7,7 +7,6 @@ services:
       TZ: UTC
       PGTZ: UTC
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-      API_DOMAIN: "localhost:$FRONT_PORT"
 
     volumes:
       - ./api/tmp/db:/var/lib/postgresql/data
@@ -16,7 +15,7 @@ services:
     build:
       context: ./api
       args:
-        WORKDIR: $WORKDIR
+        WORKDIR:               $WORKDIR
         AWS_ACCESS_KEY_ID:     $AWS_ACCESS_KEY_ID
         AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
         DB_HOST:               $DB_HOST
@@ -25,7 +24,7 @@ services:
         POSTGRES_PASSWORD:     $POSTGRES_PASSWORD
         S3_REGION:             $S3_REGION
         S3_BUCKET:             $S3_BUCKET
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     environment:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     volumes:
@@ -45,6 +44,6 @@ services:
     volumes:
       - ./front:/$WORKDIR
     ports:
-      - "8080:3000"
+      - "8080:8080"
     depends_on:
       - api
