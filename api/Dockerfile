@@ -9,6 +9,7 @@ ARG DB_USERNAME
 ARG POSTGRES_PASSWORD
 ARG S3_REGION
 ARG S3_BUCKET
+ARG RAILS_MASTER_KEY
 
 ENV RUNTIME_PACKAGES="linux-headers libxml2-dev make gcc libc-dev nodejs tzdata postgresql-dev postgresql git"
 ENV DEV_PACKAGES="build-base curl-dev"
@@ -26,6 +27,7 @@ ENV S3_REGION             $S3_REGION
 ENV S3_BUCKET             $S3_BUCKET
 ENV S3_REGION             $S3_REGION
 ENV S3_BUCKET             $S3_BUCKET
+ENV RAILS_MASTER_KEY      $RAILS_MASTER_KEY
 
 # ENV test（このRUN命令は確認のためなので無くても良い）
 RUN echo ${HOME}
