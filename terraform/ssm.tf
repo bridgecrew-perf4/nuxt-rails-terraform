@@ -31,6 +31,7 @@ variable "DB_USERNAME" {}
 variable "POSTGRES_PASSWORD" {}
 variable "S3_REGION" {}
 variable "S3_BUCKET" {}
+variable "RAILS_MASTER_KEY" {}
 
 resource "aws_ssm_parameter" "api-port" {
   name        = "api-port"
@@ -80,6 +81,12 @@ resource "aws_ssm_parameter" "s3-bucket" {
   value = var.S3_BUCKET
   type = "SecureString"
   description = "S3_BUCKET"
+}
+resource "aws_ssm_parameter" "rails-master-key" {
+  name = "rails-master-key"
+  value = var.RAILS_MASTER_KEY
+  type = "SecureString"
+  description = "RAILS_MASTER_KEY"
 }
 
 #============================================================

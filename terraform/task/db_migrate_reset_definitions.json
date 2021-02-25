@@ -42,6 +42,10 @@
         "valueFrom": "secret-access-key"
       },
       {
+        "name": "RAILS_MASTER_KEY",
+        "valueFrom": "rails-master-key"
+      },
+      {
         "name": "DB_HOST",
         "valueFrom": "db"
       },
