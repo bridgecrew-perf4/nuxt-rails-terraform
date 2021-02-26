@@ -4,7 +4,7 @@ env:
   parameter-store:
     DOCKERHUB_USER: dockerhub-user
     DOCKERHUB_PASS: dockerhub-pass
-
+    WORKDIR: workdir
 phases:
   install:
     runtime-versions:
