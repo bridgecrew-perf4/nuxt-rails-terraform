@@ -7,9 +7,10 @@ services:
       TZ: UTC
       PGTZ: UTC
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
-
     volumes:
       - db-data:/var/lib/postgresql/data
+    tty: true
+    stdin_open: true
 
   api:
     build:
