@@ -17,7 +17,7 @@ resource "aws_ecs_service" "nuxt-service" {
   name                              = "nuxt-service"
   cluster                           = aws_ecs_cluster.nuxt-rails-cluster.arn
   task_definition                   = aws_ecs_task_definition.nuxt-task.arn
-  desired_count                     = 1
+  desired_count                     = 2
   launch_type                       = "FARGATE"
   platform_version                  = "1.3.0"
   health_check_grace_period_seconds = 600
@@ -53,9 +53,10 @@ resource "aws_ecs_service" "rails-service" {
   name             = "rails-service"
   cluster          = aws_ecs_cluster.nuxt-rails-cluster.arn
   task_definition  = aws_ecs_task_definition.rails-task.arn
-  desired_count    = 1
+  desired_count    = 2
   launch_type      = "FARGATE"
   platform_version = "1.3.0"
+  health_check_grace_period_seconds = 600
 
   network_configuration {
     assign_public_ip = true
