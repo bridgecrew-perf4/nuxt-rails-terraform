@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: $POSTGRES_PASSWORD
 
     volumes:
-      - ./api/tmp/db:/var/lib/postgresql/data
+      - db-data:/var/lib/postgresql/data
 
   api:
     build:
@@ -26,11 +26,10 @@ services:
         S3_BUCKET:             $S3_BUCKET
         RAILS_MASTER_KEY:      $RAILS_MASTER_KEY
 
-    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
-    environment:
-      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+    command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - ./api:/$WORKDIR
+      - api-bundle:/usr/local/bundle
     depends_on:
       - db
     ports:
@@ -49,3 +48,8 @@ services:
       - "8080:8080"
     depends_on:
       - api
+
+volumes:
+  db-data:
+  api-bundle:
+  front-node_modules:
