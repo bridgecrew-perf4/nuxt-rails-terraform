@@ -25,7 +25,8 @@ services:
         S3_REGION:             $S3_REGION
         S3_BUCKET:             $S3_BUCKET
         RAILS_MASTER_KEY:      $RAILS_MASTER_KEY
-
+    tty: true
+    stdin_open: true
     command: /bin/sh -c "rm -f /app/tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     volumes:
       - ./api:/$WORKDIR
@@ -36,15 +37,14 @@ services:
       - "3000:3000"
 
   front:
-    build:
-      context: ./front
-      args:
-        WORKDIR: $WORKDIR
-    command: yarn run dev
+    build: ./front
     volumes:
-      - ./front:/$WORKDIR
+      - ./front:/app
     ports:
       - "8080:8080"
+    tty: true
+    stdin_open: true
+    command: yarn run dev
     depends_on:
       - api
 
