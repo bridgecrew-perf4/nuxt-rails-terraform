@@ -1,17 +1,21 @@
 FROM node:14.4.0-alpine
 
-ARG WORKDIR="app"
+ARG WORKDIR="/app"
 ARG CONTAINER_PORT
 
-ENV HOME=/${WORKDIR} \
-  LANG=C.UTF-8 \
-  TZ=Asia/Tokyo \
-  HOST=0.0.0.0
+ENV LANG C.UTF-8
+ENV TZ Asia/Tokyo
+ENV HOST=0.0.0.0
 
-WORKDIR ${HOME}
+WORKDIR ${WORKDIR}
 
 COPY package*.json ./
-RUN yarn install
+RUN apk update && \
+  apk upgrade && \
+  apk add --no-cache make gcc g++ python && \
+  yarn install && \
+  rm -rf /var/cache/apk/*
+
 
 COPY . .
 
