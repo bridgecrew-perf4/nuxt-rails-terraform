@@ -38,16 +38,18 @@ services:
       - "3000:3000"
 
   front:
-    build: ./front
-    volumes:
-      - ./front:/app
-    ports:
-      - "8080:3000"
+    build:
+      context: ./front
+      args:
+        WORKDIR: $WORKDIR
+        CONTAINER_PORT: $CONTAINER_PORT
     tty: true
     stdin_open: true
     command: yarn run dev
-    depends_on:
-      - api
+    volumes:
+      - ./front:/$WORKDIR
+    ports:
+      - "8080:3000"
 
 volumes:
   db-data:
