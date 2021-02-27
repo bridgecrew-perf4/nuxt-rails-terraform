@@ -39,7 +39,7 @@ RUN apk update && \
     apk del build-dependencies
 RUN apk add --update --no-cache less
 
-COPY . .
+ADD . /app
 
 EXPOSE 3000
 

@@ -16,8 +16,7 @@ RUN apk update && \
   yarn install && \
   rm -rf /var/cache/apk/*
 
-
-COPY . .
+ADD . /app
 
 # RUN yarn run build
 
