@@ -94,6 +94,7 @@ resource "aws_ssm_parameter" "rails-master-key" {
 #============================================================
 variable "WORKDIR" {}
 variable "FRONT_PORT" {}
+variable "CONTAINER_PORT" {}
 
 resource "aws_ssm_parameter" "workdir" {
   name        = "workdir"
@@ -107,6 +108,12 @@ resource "aws_ssm_parameter" "front-port" {
   value       = var.FRONT_PORT
   type        = "SecureString"
   description = "FRONT_PORT"
+}
+resource "aws_ssm_parameter" "container-port" {
+  name        = "container-port"
+  value       = var.CONTAINER_PORT
+  type        = "SecureString"
+  description = "CONTAINER_PORT"
 }
 
 #============================================================
